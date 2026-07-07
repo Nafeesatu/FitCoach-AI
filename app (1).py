@@ -120,9 +120,6 @@ with st.sidebar:
     st.session_state["user_id"] = user_id
 
     st.markdown("---")
-    st.markdown("**What I can help with:**")
-
-    st.markdown("---")
     if st.session_state.get("user_id"):
         if st.button("🗑️ Clear conversation", use_container_width=True):
             st.session_state.messages = [{"role": "system", "content": SYSTEM_PROMPT}]
