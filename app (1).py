@@ -76,11 +76,6 @@ st.markdown("""
         color: #ffffff;
         border-color: rgba(99, 102, 241, 0.6);
     }
-    .streamlit-expanderHeader {
-        background-color: rgba(99, 102, 241, 0.08) !important;
-        border-radius: 10px !important;
-        color: #a5b4fc !important;
-    }
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
 </style>
@@ -193,8 +188,3 @@ if user_input:
             )
             st.session_state.messages = updated_messages
             st.write(answer)
-
-            if tool_log:
-                with st.expander("🔧 Tools used in this response"):
-                    for call in tool_log:
-                        st.write(f"**{call['tool']}**({call['args']})")
