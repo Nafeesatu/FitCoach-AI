@@ -112,7 +112,7 @@ with st.sidebar:
     st.markdown("---")
 
     user_id = st.text_input(
-        "👤 Your name or ID",
+        "👤 Your name",
         value=st.session_state.get("user_id", ""),
         placeholder="e.g. Nafisat",
         help="Used to remember your profile and progress across sessions."
@@ -121,12 +121,6 @@ with st.sidebar:
 
     st.markdown("---")
     st.markdown("**What I can help with:**")
-    st.markdown("""
-        <span class="feature-pill">📊 Calorie & macro calculator</span>
-        <span class="feature-pill">🍗 Food nutrition lookup</span>
-        <span class="feature-pill">📈 Progress tracking</span>
-        <span class="feature-pill">🧠 Evidence-based guidance</span>
-    """, unsafe_allow_html=True)
 
     st.markdown("---")
     if st.session_state.get("user_id"):
