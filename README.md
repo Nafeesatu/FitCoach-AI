@@ -10,7 +10,7 @@ Built as a capstone project demonstrating LLM integration, tool use, memory, and
 **(https://fitcoach-ai-mwuepuzdey7ttevuz9sns6.streamlit.app/)**
 
 ## 🎥 Demo Video
-**[Add your Google Drive video link here]**
+(https://drive.google.com/file/d/1NbSfioeXX_bBhzDcvWZtsnUQlL-DN5H2/view?usp=drivesdk)
 
 ---
 
