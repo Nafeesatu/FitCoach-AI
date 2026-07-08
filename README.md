@@ -111,52 +111,6 @@ The agent runs a **tool-calling loop**: it sends the conversation to the LLM, ch
 
 ---
 
-## ⚙️ Setup Instructions (Local)
-
-### 1. Clone the repository
-```bash
-git clone https://github.com/<your-username>/<your-repo-name>.git
-cd <your-repo-name>
-```
-
-### 2. Install dependencies
-```bash
-pip install -r requirements.txt
-```
-
-### 3. Get free API keys
-- **Groq API key:** [console.groq.com/keys](https://console.groq.com/keys)
-- **USDA FoodData Central API key:** [fdc.nal.usda.gov/api-key-signup](https://fdc.nal.usda.gov/api-key-signup)
-
-### 4. Add your API keys as Streamlit secrets
-Create a file at `.streamlit/secrets.toml`:
-```toml
-GROQ_API_KEY = "your_groq_key_here"
-USDA_API_KEY = "your_usda_key_here"
-```
-
-### 5. Run the app
-```bash
-streamlit run app.py
-```
-The app will open at `http://localhost:8501`.
-
----
-
-## ☁️ Deployment (Streamlit Community Cloud)
-
-1. Push this repository to GitHub.
-2. Go to [share.streamlit.io](https://share.streamlit.io) and sign in with GitHub.
-3. Click **"New app"**, select this repository and `app.py` as the entry point.
-4. Under **Advanced settings → Secrets**, paste:
-   ```toml
-   GROQ_API_KEY = "your_groq_key_here"
-   USDA_API_KEY = "your_usda_key_here"
-   ```
-5. Click **Deploy**.
-
----
-
 ## 🧪 Example Interactions
 
 > **"I'm 28, 70kg, 170cm, moderately active, want to maintain my weight. What are my calorie and macro targets?"**
@@ -182,13 +136,3 @@ The app will open at `http://localhost:8501`.
 - Multi-turn workout plan generation
 
 ---
-
-## 📜 License
-
-This project was built as part of an AI bootcamp capstone project.
-
----
-
-## 🙋 Author
-
-Built by [Your Name] — [LinkedIn/GitHub link]
