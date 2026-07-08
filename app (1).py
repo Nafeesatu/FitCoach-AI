@@ -1,4 +1,4 @@
-%%writefile app.py
+
 import streamlit as st
 from groq import Groq
 from agent import run_agent, make_available_functions, SYSTEM_PROMPT
