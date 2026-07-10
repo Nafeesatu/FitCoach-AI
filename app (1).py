@@ -1,4 +1,4 @@
-
+%%writefile app.py
 import streamlit as st
 from groq import Groq
 from agent import run_agent, make_available_functions, SYSTEM_PROMPT
@@ -11,6 +11,9 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# ============================
+# CUSTOM STYLING
+# ============================
 st.markdown("""
 <style>
     .stApp {
@@ -51,15 +54,29 @@ st.markdown("""
     section[data-testid="stSidebar"] li {
         color: #cbd5e1;
     }
+
+    /* ---- FIXED: text input visible on all phones, light or dark mode ---- */
     .stTextInput input {
-        border-radius: 10px;
-        border: 1px solid rgba(255,255,255,0.15);
-        background-color: rgba(255,255,255,0.05);
-        color: white;
+        border-radius: 10px !important;
+        border: 1px solid rgba(255,255,255,0.25) !important;
+        background-color: #14213d !important;
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important;
+        caret-color: #ffffff !important;
     }
+    .stTextInput input::placeholder {
+        color: #94a3b8 !important;
+        opacity: 1 !important;
+    }
+    .stTextInput > div > div {
+        background-color: #14213d !important;
+    }
+    /* ---------------------------------------------------------------- */
+
     .stChatInput textarea {
         border-radius: 12px !important;
     }
+    /* Sidebar suggestion buttons styled like pills */
     section[data-testid="stSidebar"] .stButton button {
         background: rgba(99, 102, 241, 0.15);
         color: #a5b4fc;
@@ -70,11 +87,17 @@ st.markdown("""
         width: 100%;
         text-align: left;
         margin-bottom: 6px;
+        transition: background 0.15s ease;
     }
     section[data-testid="stSidebar"] .stButton button:hover {
         background: rgba(99, 102, 241, 0.35);
         color: #ffffff;
         border-color: rgba(99, 102, 241, 0.6);
+    }
+    .streamlit-expanderHeader {
+        background-color: rgba(99, 102, 241, 0.08) !important;
+        border-radius: 10px !important;
+        color: #a5b4fc !important;
     }
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
@@ -83,13 +106,17 @@ st.markdown("""
 
 init_db()
 
+# --- Suggested prompts: label shown on button -> actual message sent ---
 SUGGESTIONS = {
-    "📊 Calorie & macro calculator": "I'm 28 years old, 70kg, 170cm, moderately active, and I want to maintain my weight. What are my daily calorie and macro targets?",
+    "📊 Calorie & macro calculator": "I'm a 28 year old, 70kg, 170cm, moderately active, and I want to maintain my weight. What are my daily calorie and macro targets?",
     "🍗 Food nutrition lookup": "How much protein and how many calories are in 150g of chicken breast?",
     "📈 Track my progress": "Please save my profile: I'm 25 years old, 65kg, 168cm, lightly active, trying to lose weight.",
     "🧠 Evidence-based guidance": "Is it safe to lose 5kg in 2 weeks?"
 }
 
+# ============================
+# SIDEBAR
+# ============================
 with st.sidebar:
     st.markdown("## 💪 FitCoach AI")
     st.markdown("Your personal AI-powered fitness and nutrition coach.")
@@ -107,7 +134,7 @@ with st.sidebar:
     st.markdown("**Try asking:**")
 
     for label, prompt_text in SUGGESTIONS.items():
-        if st.button(label, key=f"sugg_{label}", use_container_width=True):
+        if st.button(label, key=f"suggestion_{label}", use_container_width=True):
             st.session_state["pending_input"] = prompt_text
 
     st.markdown("---")
@@ -120,6 +147,7 @@ with st.sidebar:
     st.markdown("---")
     st.caption("Built with Groq (Llama 3.3), Streamlit, USDA FoodData Central, and RAG.")
 
+# --- Load API keys from Streamlit secrets ---
 try:
     GROQ_API_KEY = st.secrets["GROQ_API_KEY"]
     USDA_API_KEY = st.secrets["USDA_API_KEY"]
@@ -130,6 +158,9 @@ except Exception:
 client = Groq(api_key=GROQ_API_KEY)
 available_functions = make_available_functions(usda_api_key=USDA_API_KEY)
 
+# ============================
+# MAIN HEADER
+# ============================
 st.markdown("""
 <div class="main-header">
     <h1>💪 FitCoach AI</h1>
@@ -152,8 +183,11 @@ has_visible_messages = any(
 if not has_visible_messages:
     with st.chat_message("assistant", avatar="💪"):
         st.write(
-            f"Hey {user_id}! 👋 I'm your AI fitness coach. Try one of the suggestions "
-            "in the sidebar, or ask me anything about your calories, nutrition, or progress."
+            f"Hey {user_id}! 👋 I'm your AI fitness coach. Tell me a bit about "
+            "yourself (age, weight, height, activity level, and goal) and I can "
+            "calculate your calorie and macro targets, look up nutrition info for "
+            "any food, and track your progress over time. Try one of the suggestions "
+            "in the sidebar, or ask me anything!"
         )
 
 for msg in st.session_state.messages:
@@ -170,8 +204,10 @@ for msg in st.session_state.messages:
         with st.chat_message("assistant", avatar="💪"):
             st.write(content)
 
+# --- Determine the message to process: either typed input or a clicked suggestion ---
 typed_input = st.chat_input("Ask me about calories, nutrition, or your progress...")
 pending_input = st.session_state.pop("pending_input", None)
+
 user_input = typed_input or pending_input
 
 if user_input:
