@@ -1,6 +1,6 @@
 # 💪FitCoach AI — AI Fitness & Nutrition Coach
 
-A single-agent AI application that acts as a personal fitness and nutrition coach. Chat naturally about your fitness goals, and the agent calculates your calorie/macro needs, looks up real nutrition data, tracks your progress over time, and gives evidence-based fitness guidance — all through a conversational interface that remembers you across sessions.
+A single-agent AI application that acts as a personal fitness and nutrition coach. Chat naturally about your fitness goals, and the agent calculates your calorie/macro needs, looks up real nutrition data, tracks your progress over time, and gives evidence-based fitness guidance all through a conversational interface that remembers you across sessions.
 
 Built as a capstone project demonstrating LLM integration, tool use, memory, and retrieval-augmented generation (RAG) in a deployed, single-agent architecture.
 
@@ -16,7 +16,7 @@ Built as a capstone project demonstrating LLM integration, tool use, memory, and
 
 ## 📌 The Problem
 
-Personalized fitness and nutrition coaching is expensive, and free calculator apps are static — they don't remember you, can't answer follow-up questions, and can't hold a real conversation. Someone trying to lose weight, build muscle, or just eat better often has to juggle multiple separate apps: one for calorie calculations, another for food nutrition lookups, a notebook for tracking progress, and Google for general fitness questions.
+Personalized fitness and nutrition coaching is expensive, and free calculator apps are static, they don't remember you, can't answer follow-up questions, and can't hold a real conversation. Someone trying to lose weight, build muscle, or just eat better often has to juggle multiple separate apps: one for calorie calculations, another for food nutrition lookups, a notebook for tracking progress, and Google for general fitness questions.
 
 **FitCoach AI** solves this by combining all of that into a single conversational AI agent that:
 - Calculates personalized calorie and macro targets
